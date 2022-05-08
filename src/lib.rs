@@ -60,3 +60,39 @@ macro_rules! is_trait {
         B::<$type>(core::marker::PhantomData).is()
     }};
 }
+
+/// Like [`is_trait`] but uses const trait impls
+#[macro_export]
+macro_rules! const_is_trait {
+    ($type:ty, $trait:path) => {{
+        trait A {
+            fn is(&self) -> bool;
+        }
+
+        struct B<T: ?Sized>(core::marker::PhantomData<T>);
+
+        impl<T: ?Sized> const core::ops::Deref for B<T> {
+            type Target = ();
+            fn deref(&self) -> &Self::Target {
+                &()
+            }
+        }
+
+        impl<T: ?Sized> const A for B<T>
+        where
+            T: $trait,
+        {
+            fn is(&self) -> bool {
+                true
+            }
+        }
+
+        impl const A for () {
+            fn is(&self) -> bool {
+                false
+            }
+        }
+
+        B::<$type>(core::marker::PhantomData).is()
+    }};
+}
