@@ -5,7 +5,7 @@ license = "MIT OR Apache-2.0"
 description = "Add a macro to check if a type implements a trait at runtime"
 edition = "2021"
 repository = "https://github.com/Raspberry1111/is_trait"
-
+readme = "./README.md"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
