@@ -28,7 +28,7 @@
 /// However, if `SomeType` is not `SomeTrait`, we dereference `B<T>` into `()` and call `A` on that, which is false
 #[macro_export]
 macro_rules! is_trait {
-    ($type:ty, $trait:tt) => {{
+    ($type:ty, $trait:path) => {{
         trait A {
             fn is(&self) -> bool;
         }
